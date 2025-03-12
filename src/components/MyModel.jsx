@@ -8,8 +8,8 @@ export default function MyModel() {
   return (
      <primitive 
      object={model.scene} 
-     scale={0.5} // Try different scale values
-     position={[0, -25, 0]}
+     scale={0.1} // Try different scale values
+     position={[0, -6, 0]}
    />
   )
 }
