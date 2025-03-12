@@ -1,0 +1,11 @@
+Model Information:
+* title:	Apollo | Saturn V Launch Vehicle
+* source:	https://sketchfab.com/3d-models/apollo-saturn-v-launch-vehicle-7c61146069134981a84dc7ed951609a0
+* author:	devPilot (https://sketchfab.com/devPilot0615)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Apollo | Saturn V Launch Vehicle" (https://sketchfab.com/3d-models/apollo-saturn-v-launch-vehicle-7c61146069134981a84dc7ed951609a0) by devPilot (https://sketchfab.com/devPilot0615) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
