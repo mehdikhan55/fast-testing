@@ -1,7 +1,8 @@
 'use client'
 import React from 'react'
 import { useGLTF } from '@react-three/drei'
-// import rocketModel from "../assets/death_earth/scene.gltf"
+
+// /src/components/MyModel.jsx
 
 export default function MyModel() {
   const model = useGLTF('/rocket/scene.glb')
