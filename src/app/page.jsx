@@ -187,7 +187,7 @@ const Page = () => {
       {/* Main Content - Scrollable Sections */}
       <main className="relative z-1">
         {/* Hero Section */}
-        <section className="h-screen flex items-center justify-center text-center px-4">
+        <section className="h-screen flex items-center justify-center text-center px-4 max-sm:pt-20 max-md:pt-10">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
