@@ -6,6 +6,8 @@ import { Vector3 } from 'three'
 import { gsap } from 'gsap'
 import { siteConfig } from '../config/siteConfig'
 
+// /src/components/RocketModel.jsx
+
 export default function RocketModel({ currentSection }) {
   const modelRef = useRef()
   const { scene, camera } = useThree()
@@ -37,59 +39,63 @@ export default function RocketModel({ currentSection }) {
   }, [])
   
   // Handle section changes with animations
-  useEffect(() => {
-    if (!modelRef.current) return
-    
-    // Get settings from config
-    const sectionSettings = siteConfig.rocketModel.views
-    
-    // Get settings for current section (or use default if not found)
-    const settings = sectionSettings[currentSection] || sectionSettings.intro
-    
-    // Animate to new position and rotation
-    gsap.to(modelRef.current.position, {
+useEffect(() => {
+  if (!modelRef.current) return;
+  
+  // Get settings from config
+  const sectionSettings = siteConfig.rocketModel.views;
+  
+  // Get settings for current section (or use default if not found)
+  const settings = sectionSettings[currentSection] || sectionSettings.intro;
+  
+  // Create a single timeline for all animations
+  const timeline = gsap.timeline({
+    defaults: {
+      duration: siteConfig.animations.sectionTransition,
+      ease: "power3.inOut"
+    }
+  });
+  
+  // Add all animations to the timeline
+  timeline
+    .to(modelRef.current.position, {
       x: settings.position[0],
       y: settings.position[1],
       z: settings.position[2],
-      duration: siteConfig.animations.sectionTransition,
-      ease: "power3.inOut"
-    })
-    
-    gsap.to(modelRef.current.rotation, {
+    }, 0)
+    .to(modelRef.current.rotation, {
       x: settings.rotation[0],
       y: settings.rotation[1],
       z: settings.rotation[2],
-      duration: siteConfig.animations.sectionTransition,
-      ease: "power2.inOut"
-    })
-    
-    gsap.to(modelRef.current.scale, {
+    }, 0)
+    .to(modelRef.current.scale, {
       x: settings.scale,
       y: settings.scale,
       z: settings.scale,
-      duration: siteConfig.animations.sectionTransition,
-      ease: "power2.inOut"
-    })
-    
-    // Optional: Move camera to match the view
-    if (settings.cameraPosition) {
-      gsap.to(camera.position, {
-        x: settings.cameraPosition[0],
-        y: settings.cameraPosition[1],
-        z: settings.cameraPosition[2],
-        duration: siteConfig.animations.sectionTransition * 1.2,
-        ease: "power2.inOut",
-        onUpdate: () => {
-          camera.lookAt(
-            modelRef.current.position.x,
-            modelRef.current.position.y,
-            modelRef.current.position.z
-          )
-        }
-      })
-    }
-    
-  }, [currentSection, camera])
+    }, 0);
+  
+  // Optional: Move camera to match the view
+  if (settings.cameraPosition) {
+    timeline.to(camera.position, {
+      x: settings.cameraPosition[0],
+      y: settings.cameraPosition[1],
+      z: settings.cameraPosition[2],
+      duration: siteConfig.animations.sectionTransition * 1.2,
+      onUpdate: () => {
+        camera.lookAt(
+          modelRef.current.position.x,
+          modelRef.current.position.y,
+          modelRef.current.position.z
+        );
+      }
+    }, 0);
+  }
+  
+  // Clean up timeline
+  return () => {
+    timeline.kill();
+  };
+}, [currentSection, camera]);
   
   // Add subtle floating animation
   useFrame((state, delta) => {

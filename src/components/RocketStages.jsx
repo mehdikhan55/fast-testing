@@ -6,6 +6,8 @@ import { PointMaterial, Points } from '@react-three/drei'
 import * as THREE from 'three'
 import { siteConfig } from '../config/siteConfig'
 
+// /src/components/RocketStages.jsx
+
 // This component creates visual elements to highlight different rocket stages
 export default function RocketStages({ currentSection }) {
   const stagesRef = useRef()

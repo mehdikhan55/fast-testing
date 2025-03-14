@@ -4,6 +4,8 @@ import { FaBars, FaTimes, FaRocket, FaCubes, FaColumns, FaFire, FaCompass, FaSpa
 import { motion, AnimatePresence } from 'framer-motion'
 import { siteConfig } from '../config/siteConfig'
 
+// /src/components/MobileNav.jsx
+
 export default function MobileNav({ currentSection }) {
   const [isOpen, setIsOpen] = useState(false)
   

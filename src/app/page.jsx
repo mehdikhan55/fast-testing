@@ -7,6 +7,9 @@ import { motion } from 'framer-motion'
 import { FaRocket, FaSpaceShuttle, FaCubes, FaColumns, FaFire, FaCompass, FaGraduationCap } from 'react-icons/fa'
 import { siteConfig } from '../config/siteConfig'
 import MobileNav from '../components/MobileNav'
+import _ from 'lodash'
+
+// /src/app/page.jsx
 
 // Lazy load the model component
 const RocketModel = dynamic(() => import('../components/RocketModel'), { ssr: false });
@@ -60,7 +63,7 @@ const Page = () => {
   
   // Handle scroll
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = _.debounce(() => {
       setScrollY(window.scrollY);
       
       // Determine which section is in view
@@ -87,10 +90,13 @@ const Page = () => {
           }
         }
       });
-    };
+    },5)
     
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      handleScroll.cancel(); // Cancel debounce on cleanup
+    };
   }, [currentSection]);
   
   return (

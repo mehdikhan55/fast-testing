@@ -5,6 +5,8 @@ import { gsap } from 'gsap'
 import * as THREE from 'three'
 import { siteConfig } from '../config/siteConfig'
 
+// /src/components/RocketSeparation.jsx
+
 // This component creates a separation animation between stages
 export default function RocketSeparation({ currentSection, triggerSeparation }) {
   const separationRef = useRef()
