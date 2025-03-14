@@ -55,13 +55,13 @@ export const siteConfig = {
           }
         },
         'guidance': {
-          position: [-1, -1, 0],  // Lowered from 3 to -1
+          position: [2, -2, 0],  // Increased x from 1 to 2 (more right) and y from -1 to -2 (lower)
           rotation: [0, Math.PI * 1.2, 0],
           scale: 0.15,
-          cameraPosition: [-3, 0, 10],  // Adjusted camera position
+          cameraPosition: [4, -1, 10],  // Adjusted camera to match new position
           highlight: {
             color: '#ffaa55',
-            position: [0, -1, 0],  // Lowered highlight position
+            position: [0, -2, 0],  // Lowered highlight position to match
             intensity: 1.8,
             distance: 3.5,
           }
