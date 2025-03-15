@@ -19,7 +19,7 @@ export const siteConfig = {
           cameraPosition: [0, -2, 15],  // Adjusted camera position
         },
         'foundation': {
-          position: [0, -7, 0],  // Lowered from -2 to -7
+          position: [0, -6, 0],  // Lowered from -2 to -7
           rotation: [0, Math.PI * 0.1, 0],
           scale: 0.15,
           cameraPosition: [3, -5, 12],  // Adjusted camera position
@@ -31,7 +31,7 @@ export const siteConfig = {
           }
         },
         'supports': {
-          position: [1, -5, 0],  // Lowered from 0 to -5
+          position: [1, -5, 1],  // Lowered from 0 to -5
           rotation: [0, Math.PI * 0.5, 0],
           scale: 0.15,
           cameraPosition: [5, -3, 10],  // Adjusted camera position

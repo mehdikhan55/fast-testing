@@ -39,64 +39,52 @@ export default function RocketModel({ currentSection }) {
   }, [])
   
   // Handle section changes with animations
+// In RocketModel.jsx - find the useEffect that runs when currentSection changes
 useEffect(() => {
   if (!modelRef.current) return;
   
-  // Get settings from config
-  const sectionSettings = siteConfig.rocketModel.views;
+  // Use requestAnimationFrame to ensure animations stay in sync with render cycle
+  let animationId;
   
-  // Get settings for current section (or use default if not found)
-  const settings = sectionSettings[currentSection] || sectionSettings.intro;
-  
-  // Create a single timeline for all animations
-  const timeline = gsap.timeline({
-    defaults: {
-      duration: siteConfig.animations.sectionTransition,
-      ease: "power3.inOut"
-    }
-  });
-  
-  // Add all animations to the timeline
-  timeline
-    .to(modelRef.current.position, {
+  const animate = () => {
+    // Get settings from config
+    const sectionSettings = siteConfig.rocketModel.views;
+    const settings = sectionSettings[currentSection] || sectionSettings.intro;
+    
+    // Create timeline with improved performance settings
+    const timeline = gsap.timeline({
+      defaults: {
+        duration: siteConfig.animations.sectionTransition,
+        ease: "power3.inOut",
+        overwrite: "auto", // This helps prevent animation conflicts
+        force3D: true // Forces GPU acceleration
+      }
+    });
+    
+    // Add animations to timeline
+    timeline.to(modelRef.current.position, {
       x: settings.position[0],
       y: settings.position[1],
       z: settings.position[2],
-    }, 0)
-    .to(modelRef.current.rotation, {
-      x: settings.rotation[0],
-      y: settings.rotation[1],
-      z: settings.rotation[2],
-    }, 0)
-    .to(modelRef.current.scale, {
-      x: settings.scale,
-      y: settings.scale,
-      z: settings.scale,
     }, 0);
+    
+    // ...other animations
+    
+    // Ensure cleanup
+    timeline.eventCallback("onComplete", () => {
+      cancelAnimationFrame(animationId);
+    });
+  };
   
-  // Optional: Move camera to match the view
-  if (settings.cameraPosition) {
-    timeline.to(camera.position, {
-      x: settings.cameraPosition[0],
-      y: settings.cameraPosition[1],
-      z: settings.cameraPosition[2],
-      duration: siteConfig.animations.sectionTransition * 1.2,
-      onUpdate: () => {
-        camera.lookAt(
-          modelRef.current.position.x,
-          modelRef.current.position.y,
-          modelRef.current.position.z
-        );
-      }
-    }, 0);
-  }
+  // Start animation in next frame
+  animationId = requestAnimationFrame(animate);
   
-  // Clean up timeline
+  // Clean up
   return () => {
-    timeline.kill();
+    cancelAnimationFrame(animationId);
   };
 }, [currentSection, camera]);
-  
+
   // Add subtle floating animation
   useFrame((state, delta) => {
     if (!modelRef.current) return
