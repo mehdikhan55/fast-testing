@@ -11,7 +11,6 @@ import _ from 'lodash'
 import Card3D from '@/components/animated/Card3D'
 import LoadingFallback from '@/components/LoadingFallback'
 import FloatingAsteroids from '@/components/animated/FloatingAsteroids'
-import StarField from '@/components/animated/StarField'
 import CustomCursor from '@/components/animated/CustomCursor'
 import MotionTrail from '@/components/animated/MotionTrail'
 import ParallaxSection from '@/components/animated/ParallaxSection'
@@ -147,8 +146,6 @@ useEffect(() => {
             }}
             dpr={[1, 2]}
           >
-            {/* Star Field Background */}
-            <StarField />
             <color attach="background" args={[siteConfig.environment.backgroundColor]} />
             <fog attach="fog" args={[siteConfig.environment.backgroundColor, ...siteConfig.environment.fogDistance]} />
             <ambientLight intensity={0.4} />
