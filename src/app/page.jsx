@@ -73,55 +73,55 @@ const Page = () => {
   }, []);
 
   // Handle scroll
-// In page.jsx - replace your current scroll handler
-useEffect(() => {
-  let ticking = false;
-  
-  const handleScroll = () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        // Your scroll handling code here
-        setScrollY(window.scrollY);
-        
-        // Section detection logic
-        const viewportHeight = window.innerHeight;
-        const scrollPosition = window.scrollY + viewportHeight * 0.5;
-        
-        // Use a more efficient way to find current section
-        let newSection = currentSection;
-        
-        for (let i = 0; i < sectionsRef.current.length; i++) {
-          const section = sectionsRef.current[i];
-          if (!section) continue;
-          
-          const { offsetTop, offsetHeight } = section;
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            newSection = section.id;
-            break; // Exit loop once found
+  // In page.jsx - replace your current scroll handler
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // Your scroll handling code here
+          setScrollY(window.scrollY);
+
+          // Section detection logic
+          const viewportHeight = window.innerHeight;
+          const scrollPosition = window.scrollY + viewportHeight * 0.5;
+
+          // Use a more efficient way to find current section
+          let newSection = currentSection;
+
+          for (let i = 0; i < sectionsRef.current.length; i++) {
+            const section = sectionsRef.current[i];
+            if (!section) continue;
+
+            const { offsetTop, offsetHeight } = section;
+            if (
+              scrollPosition >= offsetTop &&
+              scrollPosition < offsetTop + offsetHeight
+            ) {
+              newSection = section.id;
+              break; // Exit loop once found
+            }
           }
-        }
-        
-        // Only update if changed
-        if (newSection !== currentSection) {
-          setPreviousSection(currentSection);
-          setCurrentSection(newSection);
-          setTriggerSeparation(true);
-          setTimeout(() => setTriggerSeparation(false), 100);
-        }
-        
-        ticking = false;
-      });
-      
-      ticking = true;
-    }
-  };
-  
-  window.addEventListener('scroll', handleScroll, { passive: true });
-  return () => window.removeEventListener('scroll', handleScroll);
-}, [currentSection]);
+
+          // Only update if changed
+          if (newSection !== currentSection) {
+            setPreviousSection(currentSection);
+            setCurrentSection(newSection);
+            setTriggerSeparation(true);
+            setTimeout(() => setTriggerSeparation(false), 100);
+          }
+
+          ticking = false;
+        });
+
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [currentSection]);
 
   return (
     <div className="bg-[#050a1f] text-white min-h-screen overflow-x-hidden">
@@ -144,7 +144,7 @@ useEffect(() => {
               antialias: true,
               alpha: true
             }}
-            dpr={[1, 2]}
+            dpr={[0.75, 1.5]}
           >
             <color attach="background" args={[siteConfig.environment.backgroundColor]} />
             <fog attach="fog" args={[siteConfig.environment.backgroundColor, ...siteConfig.environment.fogDistance]} />
